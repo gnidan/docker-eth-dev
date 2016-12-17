@@ -10,4 +10,7 @@ deactivate() {
     done <<< "${bins}"
 }
 
+print -n "Deactiving first... "
 deactivate
+unset ETHACTIVE
+echo "gone!"
