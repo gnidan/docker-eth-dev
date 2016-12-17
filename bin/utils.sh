@@ -31,12 +31,10 @@ test-hookup() {
 }
 
 get-eth-bins() {
-    local bins=$(find ${ETH}/bin \
+    find ${ETH}/bin \
         -perm +111 -type f \
         -exec \
             bash -c 'source ${ETH}/bin/utils.sh && get-relpath "$0" "${ETH}/bin"' {}  \;
-    )
-    echo "$bins"
 }
 
 get-run-opts() {
