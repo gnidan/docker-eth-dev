@@ -26,6 +26,10 @@ get-container-dapp-path() {
     echo ${dapp}
 }
 
+test-hookup() {
+    echo "Zzzzz hello ${ETH}"
+}
+
 get-eth-bins() {
     local bins=$(find ${ETH}/bin \
         -perm +111 -type f \
