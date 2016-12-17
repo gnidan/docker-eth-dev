@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source ${ETH}/bin/utils.sh
+
+$( get-docker-compose-cmd $@ )

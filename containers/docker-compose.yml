@@ -1,0 +1,59 @@
+version: '2'
+services:
+
+  testrpc:
+    build: testrpc
+    networks:
+      - ethereum-dev
+
+  parity-ropsten:
+    image: ethcore/parity:beta-release
+    volumes:
+      - ropsten:/root/.parity
+    tty: true
+    networks:
+      - ethereum-dev
+    entrypoint: >
+      /build/parity/target/release/parity
+        --testnet --warp
+        --ui-interface 0.0.0.0 --jsonrpc-interface 0.0.0.0 --dapps-interface 0.0.0.0
+        --jsonrpc-hosts all --dapps-hosts all
+
+  truffle:
+    tty: true
+    build: truffle
+    networks:
+      - ethereum-dev
+    volumes:
+      - "${ETH}/dapps:/var/dapps"
+    links:
+      - parity-ropsten
+      - testrpc
+
+
+  nginx:
+    restart: always
+    tty: true
+    image: nginx
+    volumes:
+      - "${ETH}/containers/nginx/nginx.conf:/etc/nginx/nginx.conf"
+    networks:
+      - ethereum-dev
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "8545:8545"
+    links:
+      - parity-ropsten
+    entrypoint: >
+      /bin/bash -c "nginx -g 'daemon off;'"
+
+
+volumes:
+  ropsten:
+    external: true
+
+
+networks:
+  ethereum-dev:
+    driver: bridge

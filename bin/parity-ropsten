@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source ${ETH}/bin/utils.sh
+
+SERVICE="parity-ropsten"
+
+main() {
+    local compose_cmd=$( get-docker-compose-cmd \
+        run ${SERVICE} $@
+    )
+
+    ${compose_cmd}
+}
+
+main "$@"

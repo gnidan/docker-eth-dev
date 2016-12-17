@@ -1,0 +1,33 @@
+#!/bin/bash
+
+source ${ETH}/bin/utils.sh
+
+SERVICE="truffle"
+
+
+main() {
+    local cmd=$1
+    local opts=${@:2}
+
+    local name=$(echo "truffle-${cmd}-$(get-container-dapp-path)" | tr '/' '-')
+
+    local extra_run_opts="--rm --name ${name}"
+    # local port_map="5050:8080"
+    # if [ "${cmd}" == "serve" ]
+    # then
+
+    #     extra_run_opts="${extra_run_opts} -p ${port_map}"
+    # fi
+
+    local run_opts=$( get-run-opts ${extra_run_opts} )
+
+    local compose_cmd=$( get-docker-compose-cmd \
+        run ${run_opts} \
+        ${SERVICE} \
+        truffle ${cmd} ${opts}
+    )
+
+    ${compose_cmd}
+}
+
+main "$@"
