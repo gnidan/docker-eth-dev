@@ -8,6 +8,17 @@ get-normpath() {
   print os.path.normpath(sys.argv[1])' "${1-$PWD}"
 }
 
+get-abspath() {
+    python -c 'import os.path, sys;\
+  print os.path.abspath(sys.argv[1])' "${1-$PWD}"
+}
+
+get-real-eth-home() {
+    local whereisthis=`dirname $BASH_SOURCE`
+    local eth_home=`get-abspath "${whereisthis}/.."`
+    echo "${eth_home}"
+}
+
 get-container-dapp-path() {
     local dapp=`get-relpath ${1-$PWD} "${ETH}/dapps"`
     dapp="/var/dapps/${dapp}"
