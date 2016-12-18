@@ -1,18 +1,18 @@
-ETH=$( echo $_ | xargs dirname | xargs dirname )   # bootstrap relative ETH
+ETH=$( echo ${BASH_SOURCE-$_} | xargs dirname | xargs dirname )   # bootstrap relative ETH
 
-if [ "$ETHACTIVE" -gt "0" ]
+if [ "${ETHACTIVE-0}" -gt "0" ]
 then
     # first deactivate to clear anything out
-    source ${ETH}/bin/deactivate.sh
+    . ${ETH}/bin/deactivate.sh
 fi
 
 activate() {
-    local eth_cmd="source $1/bin/utils.sh && get-real-eth-home"
-    ETH="$( bash -c ${eth_cmd} )"
+    local eth_cmd=". ${ETH}/bin/utils.sh && get-real-eth-home"
+    ETH="$( bash -c "${eth_cmd}" )"
     export ETH
 
-    local bins_cmd="source ${ETH}/bin/utils.sh && get-eth-bins"
-    local bins="$( bash -c ${bins_cmd} )"
+    local bins_cmd=". ${ETH}/bin/utils.sh && get-eth-bins"
+    local bins="$( bash -c "${bins_cmd}" )"
 
     local alias_cmd
     while read -r bin
@@ -23,7 +23,7 @@ activate() {
 }
 
 echo "Activating Ethereum development environment..."
-activate "$ETH"
+activate
 echo "\$ETH set to ${ETH}"
 
 ETHACTIVE=1
