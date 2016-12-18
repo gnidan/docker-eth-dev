@@ -12,5 +12,6 @@ deactivate() {
 
 echo -n "Deactiving first... "
 deactivate
+unset deactivate
 unset ETHACTIVE
 echo "gone!"

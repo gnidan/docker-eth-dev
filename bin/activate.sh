@@ -24,6 +24,7 @@ activate() {
 
 echo "Activating Ethereum development environment..."
 activate
+unset activate
 echo "\$ETH set to ${ETH}"
 
 ETHACTIVE=1
