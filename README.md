@@ -15,8 +15,8 @@ Dev tools include:
 
 ## Dependencies
 
-Requires [Docker](https://www.docker.com/). (or at least a version with
-`docker-compose`)
+ - Requires [Docker](https://www.docker.com/).
+   (tested version 1.13.0-rc2, build 1f9b3ef)
 
 
 ## Getting Started
