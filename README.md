@@ -2,6 +2,21 @@
 
 Multi-container development environment for building dapps on test chains
 
+## Background / Goals
+
+I'm trying to find a suitable solution to the problem of having to run switch
+between running Ethereum nodes and running dapps. Most of the programs all use
+the same few ports and don't work together quite so well out of the box.
+
+Docker Compose seems like a reasonable solution - by setting up a virtual
+network of containers for individual services, and wrapping it behind a web
+proxy, it should remove a lot of the overhead of process and dependency
+management.
+
+This project also aims to create a collection of custom wrapper binaries around
+the supported services, to maintain the interface of local development while
+everything runs virtualized and separated from localhost.
+
 
 ## Overview
 
@@ -34,7 +49,7 @@ Dev tools include:
    ```sh
    source <dir>/bin/activate.sh
    ```
-   
+
 1. Create Docker volume for Ropsten Parity Account Info (for convenience)
    ```sh
    docker volume create --name=ropsten
