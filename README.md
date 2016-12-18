@@ -101,6 +101,9 @@ Dev tools include:
 
 - This env works by setting alises - if necessary, you can do `\truffle`, etc.
 
+- This opens port 80 locally. That's currently hardcoded in. I'm looking for
+  ways around this, or to make it easier to deal with.
+
 - I have no idea if configuring Parity behind an nginx proxy is wildly unsafe,
   hence why it's only set up to do Ropsten right now.
 
