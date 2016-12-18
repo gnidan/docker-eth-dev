@@ -44,31 +44,48 @@ Dev tools include:
    ```sh
    git clone https://github.com/gnidan/eth-dev.git <dir>
    ```
+   This directory will contain the contents of this repository:
+    - containers configuration
+    - wrapper binaries
+    - `dapps` top-level directory
+        - example dapp (the `truffle init` result, reconfigured)
+    - this README
 
 1. Activate shell environment
    ```sh
    source <dir>/bin/activate.sh
    ```
+   This aliases all the wrapper binaries so they're available for us in the
+   shell.
 
-1. Create Docker volume for Ropsten Parity Account Info (for convenience)
+1. Create Docker volume for Ropsten Parity
    ```sh
    docker volume create --name=ropsten
-   ````
+   ```
+   This creates a persistent volume so that the Ropsten account information/
+   chain data does not get lost when the containers are stopped.
 
 1. Start Docker containers
    ```sh
    docker-compose up -d
    ```
+   This runs nginx, testrpc, and parity-ropsten inside containers. Port 80
+   will be opened on localhost for nginx's proxy.
 
 1. Add `parity-ropsten.ethereum` to your /etc/hosts file, pointing locally or
    at your docker-machine
+
+   This is so that nginx may recognize the resource you are trying to reach.
 
 1. Visit `http://parity-ropsten.ethereum/` in your browser.
 
 1. Run `parity-ropsten signer new-token` in your active env shell.
 
-1. (In case anything stops working, I find that restarting docker-compose from
-   scratch seems to help:)
+   In case Parity Wallet needs to authenticate with the running parity-ropsten
+   container.
+
+1. Note: In case anything stops working, I find that restarting docker-compose from
+   scratch seems to help:
    ```sh
    docker-compose down
    docker-compose up -d
