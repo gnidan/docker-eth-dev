@@ -15,3 +15,5 @@ deactivate
 unset deactivate
 unset ETHACTIVE
 echo "gone!"
+popd >/dev/null
+
