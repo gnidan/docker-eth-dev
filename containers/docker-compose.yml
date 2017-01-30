@@ -19,7 +19,31 @@ services:
         --ui-interface 0.0.0.0 --jsonrpc-interface 0.0.0.0 --dapps-interface 0.0.0.0
         --jsonrpc-hosts all --dapps-hosts all
 
+  oraclize-bridge:
+    tty: true
+    build: oraclize-bridge
+    networks:
+      - ethereum-dev
+    links:
+      - testrpc
+    volumes:
+      - oraclize-instance:/var/oraclize-bridge/config/instance
+
+  oraclize-bridge-announce:
+    tty: true
+    build: oraclize-bridge-announce
+    networks:
+      - ethereum-dev
+    links:
+      - oraclize-bridge
+    volumes:
+      - oraclize-instance:/var/oraclize-instance
+      - "${ETH}/containers/oraclize-bridge-announce/bin/server.js:/var/announce/server.js"
+    ports:
+      - "80"
+
   truffle:
+    stdin_open: true
     tty: true
     build: truffle
     networks:
@@ -29,7 +53,7 @@ services:
     links:
       - parity-ropsten
       - testrpc
-
+      - oraclize-bridge-announce
 
   nginx:
     restart: always
@@ -52,7 +76,7 @@ services:
 volumes:
   ropsten:
     external: true
-
+  oraclize-instance:
 
 networks:
   ethereum-dev:
