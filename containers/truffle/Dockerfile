@@ -1,4 +1,4 @@
-FROM node:on-build
+FROM node:latest
 MAINTAINER gnidan
 
 # jessie : python 2.7
@@ -15,7 +15,7 @@ RUN \
     rm -rf /var/lib/apt/lists/*
 
 RUN \
-    npm install -g truffle@^2.1.0
+    npm install -g truffle@beta
 
 RUN \
     apt-get purge -y --auto-remove \
