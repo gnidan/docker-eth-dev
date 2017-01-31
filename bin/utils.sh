@@ -58,8 +58,5 @@ EOO)
 }
 
 get-docker-compose-cmd() {
-    COMPOSE_CFG="${ETH}/containers/docker-compose.yml"
-    eval echo $(cat <<'EOC'
-        /usr/local/bin/docker-compose -f ${COMPOSE_CFG} $@
-EOC)
+    echo "/usr/local/bin/docker-compose -f ${ETH}/containers/docker-compose.yml $@"
 }
