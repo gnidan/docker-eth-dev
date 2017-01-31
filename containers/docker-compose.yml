@@ -5,8 +5,6 @@ services:
     build: testrpc
     networks:
       - ethereum-dev
-    ports:
-      - "8545"
 
   parity-ropsten:
     image: ethcore/parity:beta-release
