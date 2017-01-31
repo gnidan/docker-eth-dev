@@ -1,3 +1,4 @@
 dapps/*
 !dapps/example
 dapps/example/build
+dapps/containers/.env
