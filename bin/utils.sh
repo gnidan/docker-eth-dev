@@ -31,7 +31,16 @@ test-hookup() {
 }
 
 get-eth-bins() {
-    for bin in $( find ${ETH}/bin -perm +111 -type f )
+    local find_args
+    case "$(uname -s)" in
+       Darwin)
+         find_args="-perm +111 -type f"
+         ;;
+       *)
+         find_args="-perm /+x -type f"
+         ;;
+    esac
+    for bin in $( find ${ETH}/bin ${find_args} )
     do
         get-relpath "${bin}" "${ETH}/bin"
     done
