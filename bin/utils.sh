@@ -51,10 +51,7 @@ get-eth-bins() {
 }
 
 get-run-opts() {
-    eval echo $(cat <<'EOO'
-        -w "$( get-container-dapp-path )" \
-        $@
-EOO)
+    echo "-w $( get-container-dapp-path ) $@"
 }
 
 get-docker-compose-cmd() {
