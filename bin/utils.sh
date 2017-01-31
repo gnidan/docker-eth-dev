@@ -1,4 +1,6 @@
-set -euf -o pipefail
+set -o errexit
+set -o pipefail
+set -o nounset
 
 get-relpath() {
     python -c 'import os.path, sys;\
@@ -35,12 +37,12 @@ test-hookup() {
 get-eth-bins() {
     local find_args
     case "$(uname -s)" in
-       Darwin)
-         find_args="-perm +111 -type f"
-         ;;
-       *)
-         find_args="-perm /+x -type f"
-         ;;
+    Darwin)
+        find_args="-perm +111 -type f"
+        ;;
+    *)
+        find_args="-perm /+x -type f"
+        ;;
     esac
     for bin in $( find ${ETH}/bin ${find_args} )
     do

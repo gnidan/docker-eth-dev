@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -o errexit
+set -o pipefail
+set -o nounset
+
 source ${ETH}/bin/utils.sh
 
 $( get-docker-compose-cmd $@ )
