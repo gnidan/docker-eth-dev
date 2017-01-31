@@ -54,6 +54,8 @@ get-run-opts() {
     echo "-w $( get-container-dapp-path ) $@"
 }
 
-get-docker-compose-cmd() {
-    echo "/usr/local/bin/docker-compose -f ${ETH}/containers/docker-compose.yml $@"
+run-docker-compose() {
+    pushd ${ETH} >/dev/null
+    docker-compose -f ${ETH}/containers/docker-compose.yml $@
+    popd >/dev/null
 }
