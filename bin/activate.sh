@@ -21,7 +21,7 @@ activate() {
         eval $alias_cmd
     done <<< "${bins}"
 
-    echo "ETH=${ETH}" > ${ETH}/.env
+    echo "ETH=${ETH}" > ${ETH}/containers/.env
 }
 
 echo "Activating Ethereum development environment..."

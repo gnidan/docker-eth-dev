@@ -55,7 +55,7 @@ get-run-opts() {
 }
 
 run-docker-compose() {
-    pushd ${ETH} >/dev/null
-    docker-compose -f ${ETH}/containers/docker-compose.yml $@
+    pushd ${ETH}/containers >/dev/null
+    docker-compose $@
     popd >/dev/null
 }
