@@ -1,5 +1,7 @@
 # eth-dev
 
+[![Join the chat at https://gitter.im/eth-dev/Lobby](https://badges.gitter.im/eth-dev/Lobby.svg)](https://gitter.im/eth-dev/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Multi-container development environment for building dapps on test chains
 
 ## Background / Goals
