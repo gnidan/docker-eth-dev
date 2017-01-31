@@ -1,3 +1,5 @@
+set -euf -o pipefail
+
 get-relpath() {
     python -c 'import os.path, sys;\
   print os.path.relpath(sys.argv[1],sys.argv[2])' "$1" "${2-$PWD}"
@@ -53,10 +55,8 @@ get-run-opts() {
 EOO)
 }
 
-
-COMPOSE_CFG="${ETH}/containers/docker-compose.yml"
-
 get-docker-compose-cmd() {
+    COMPOSE_CFG="${ETH}/containers/docker-compose.yml"
     eval echo $(cat <<'EOC'
         /usr/local/bin/docker-compose -f ${COMPOSE_CFG} $@
 EOC)
