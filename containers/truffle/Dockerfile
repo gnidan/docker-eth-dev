@@ -15,7 +15,7 @@ RUN \
     rm -rf /var/lib/apt/lists/*
 
 RUN \
-    npm install -g truffle@beta
+    npm install -g truffle@^3.0.0
 
 RUN \
     apt-get purge -y --auto-remove \

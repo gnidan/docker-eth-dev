@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -o errexit
+set -o pipefail
+set -o nounset
+
 source ${ETH}/bin/utils.sh
 
 SERVICE="truffle"
@@ -21,13 +25,10 @@ main() {
 
     local run_opts=$( get-run-opts ${extra_run_opts} )
 
-    local compose_cmd=$( get-docker-compose-cmd \
+    run-docker-compose \
         run ${run_opts} \
         ${SERVICE} \
         truffle ${cmd} ${opts}
-    )
-
-    ${compose_cmd}
 }
 
 main "$@"

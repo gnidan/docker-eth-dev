@@ -1,3 +1,7 @@
+set -o errexit
+set -o pipefail
+set -o nounset
+
 get-relpath() {
     python -c 'import os.path, sys;\
   print os.path.relpath(sys.argv[1],sys.argv[2])' "$1" "${2-$PWD}"
@@ -31,24 +35,27 @@ test-hookup() {
 }
 
 get-eth-bins() {
-    for bin in $( find ${ETH}/bin -perm +111 -type f )
+    local find_args
+    case "$(uname -s)" in
+    Darwin)
+        find_args="-perm +111 -type f"
+        ;;
+    *)
+        find_args="-perm /+x -type f"
+        ;;
+    esac
+    for bin in $( find ${ETH}/bin ${find_args} )
     do
         get-relpath "${bin}" "${ETH}/bin"
     done
 }
 
 get-run-opts() {
-    eval echo $(cat <<'EOO'
-        -w "$( get-container-dapp-path )" \
-        $@
-EOO)
+    echo "-w $( get-container-dapp-path ) $@"
 }
 
-
-COMPOSE_CFG="${ETH}/containers/docker-compose.yml"
-
-get-docker-compose-cmd() {
-    eval echo $(cat <<'EOC'
-        /usr/local/bin/docker-compose -f ${COMPOSE_CFG} $@
-EOC)
+run-docker-compose() {
+    pushd ${ETH}/containers >/dev/null
+    docker-compose $@
+    popd >/dev/null
 }

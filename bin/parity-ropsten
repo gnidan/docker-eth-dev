@@ -1,15 +1,16 @@
 #!/bin/bash
 
+set -o errexit
+set -o pipefail
+set -o nounset
+
 source ${ETH}/bin/utils.sh
 
 SERVICE="parity-ropsten"
 
 main() {
-    local compose_cmd=$( get-docker-compose-cmd \
+    run-docker-compose \
         run ${SERVICE} $@
-    )
-
-    ${compose_cmd}
 }
 
 main "$@"

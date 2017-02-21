@@ -5,21 +5,20 @@ services:
     build: testrpc
     networks:
       - ethereum-dev
-    ports:
-      - "8545"
 
   parity-ropsten:
     image: ethcore/parity:beta-release
     volumes:
-      - ropsten:/root/.parity
+      - parity-ropsten-data:/var/parity
     tty: true
     networks:
-      - ethereum-dev
+      - ethereum-ropsten
     entrypoint: >
       /build/parity/target/release/parity
         --testnet --warp
         --ui-interface 0.0.0.0 --jsonrpc-interface 0.0.0.0 --dapps-interface 0.0.0.0
         --jsonrpc-hosts all --dapps-hosts all
+        --base-path /var/parity
 
   oraclize-bridge:
     tty: true
@@ -50,6 +49,7 @@ services:
     build: truffle
     networks:
       - ethereum-dev
+      - ethereum-ropsten
     volumes:
       - "${ETH}/dapps:/var/dapps"
     links:
@@ -64,7 +64,7 @@ services:
     volumes:
       - "${ETH}/containers/nginx/nginx.conf:/etc/nginx/nginx.conf"
     networks:
-      - ethereum-dev
+      - ethereum-ropsten
     ports:
       - "80:80"
       - "8080:8080"
@@ -76,10 +76,12 @@ services:
 
 
 volumes:
-  ropsten:
+  parity-ropsten-data:
     external: true
   oraclize-instance:
 
 networks:
   ethereum-dev:
+    driver: bridge
+  ethereum-ropsten:
     driver: bridge
