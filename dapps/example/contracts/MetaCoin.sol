@@ -1,6 +1,6 @@
-pragma solidity ^0.4.2;
+pragma solidity ^0.4.4;
 
-import "ConvertLib.sol";
+import "./ConvertLib.sol";
 
 // This is just a simple example of a coin-like contract.
 // It is not standards compatible and cannot be expected to talk to other
@@ -24,11 +24,11 @@ contract MetaCoin {
 		return true;
 	}
 
-	function getBalanceInEth(address addr) constant returns(uint) {
+	function getBalanceInEth(address addr) returns(uint){
 		return ConvertLib.convert(getBalance(addr),2);
 	}
 
-	function getBalance(address addr) constant returns(uint) {
+	function getBalance(address addr) returns(uint) {
 		return balances[addr];
 	}
 }

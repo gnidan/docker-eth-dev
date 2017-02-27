@@ -42,9 +42,9 @@ Dev tools include:
 ## Getting Started
 
 
-1. Clone this repository somewhere to be your eth-dev home directory (`$ETH`)
+1. Clone this repository somewhere to be your docker-eth-dev home directory (`$ETH`)
    ```sh
-   git clone https://github.com/gnidan/eth-dev.git <dir>
+   git clone https://github.com/gnidan/docker-eth-dev.git <dir>
    ```
    This directory will contain the contents of this repository:
     - containers configuration
@@ -62,7 +62,7 @@ Dev tools include:
 
 1. Create Docker volume for Ropsten Parity
    ```sh
-   docker volume create --name=ropsten
+   docker volume create --name=parity-ropsten-data
    ```
    This creates a persistent volume so that the Ropsten account information/
    chain data does not get lost when the containers are stopped.

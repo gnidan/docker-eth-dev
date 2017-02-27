@@ -14,7 +14,7 @@ services:
     networks:
       - ethereum-ropsten
     entrypoint: >
-      /build/parity/target/release/parity
+      /parity/parity
         --testnet --warp
         --ui-interface 0.0.0.0 --jsonrpc-interface 0.0.0.0 --dapps-interface 0.0.0.0
         --jsonrpc-hosts all --dapps-hosts all
