@@ -6,13 +6,13 @@ services:
     networks:
       - ethereum-dev
 
-  parity-ropsten:
-    image: ethcore/parity:beta-release
+  parity-testnet:
+    image: ethcore/parity:v1.5.6 # TODO: change back to beta-release or stable-release when kovan changes are there
     volumes:
-      - parity-ropsten-data:/var/parity
+      - parity-testnet-data:/var/parity
     tty: true
     networks:
-      - ethereum-ropsten
+      - ethereum-testnet
     entrypoint: >
       /parity/parity
         --testnet --warp
@@ -49,11 +49,11 @@ services:
     build: truffle
     networks:
       - ethereum-dev
-      - ethereum-ropsten
+      - ethereum-testnet
     volumes:
       - "${ETH}/dapps:/var/dapps"
     links:
-      - parity-ropsten
+      - parity-testnet
       - testrpc
       - oraclize-bridge-announce
 
@@ -64,24 +64,24 @@ services:
     volumes:
       - "${ETH}/containers/nginx/nginx.conf:/etc/nginx/nginx.conf"
     networks:
-      - ethereum-ropsten
+      - ethereum-testnet
     ports:
       - "80:80"
       - "8080:8080"
       - "8545:8545"
     links:
-      - parity-ropsten
+      - parity-testnet
     entrypoint: >
       /bin/bash -c "nginx -g 'daemon off;'"
 
 
 volumes:
-  parity-ropsten-data:
+  parity-testnet-data:
     external: true
   oraclize-instance:
 
 networks:
   ethereum-dev:
     driver: bridge
-  ethereum-ropsten:
+  ethereum-testnet:
     driver: bridge

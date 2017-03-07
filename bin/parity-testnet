@@ -6,7 +6,7 @@ set -o nounset
 
 source ${ETH}/bin/utils.sh
 
-SERVICE="parity-ropsten"
+SERVICE="parity-testnet"
 
 main() {
     run-docker-compose \
