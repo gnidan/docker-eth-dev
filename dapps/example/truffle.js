@@ -5,8 +5,8 @@ module.exports = {
       port: 8545,
       network_id: "*" // Match any network id
     },
-    "ropsten": {
-      host: "parity-ropsten",
+    "testnet": {
+      host: "parity-testnet",
       port: 8545
     }
   }

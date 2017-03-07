@@ -62,7 +62,7 @@ Dev tools include:
 
 1. Create Docker volume for Ropsten Parity
    ```sh
-   docker volume create --name=parity-ropsten-data
+   docker volume create --name=parity-testnet-data
    ```
    This creates a persistent volume so that the Ropsten account information/
    chain data does not get lost when the containers are stopped.
@@ -71,19 +71,19 @@ Dev tools include:
    ```sh
    docker-compose up -d
    ```
-   This runs nginx, testrpc, and parity-ropsten inside containers. Port 80
+   This runs nginx, testrpc, and parity-testnet inside containers. Port 80
    will be opened on localhost for nginx's proxy.
 
-1. Add `parity-ropsten.ethereum` to your /etc/hosts file, pointing locally or
+1. Add `parity-testnet.ethereum` to your /etc/hosts file, pointing locally or
    at your docker-machine
 
    This is so that nginx may recognize the resource you are trying to reach.
 
-1. Visit `http://parity-ropsten.ethereum/` in your browser.
+1. Visit `http://parity-testnet.ethereum/` in your browser.
 
-1. Run `parity-ropsten signer new-token` in your active env shell.
+1. Run `parity-testnet signer new-token` in your active env shell.
 
-   In case Parity Wallet needs to authenticate with the running parity-ropsten
+   In case Parity Wallet needs to authenticate with the running parity-testnet
    container.
 
 1. Note: In case anything stops working, I find that restarting docker-compose from
