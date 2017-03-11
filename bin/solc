@@ -1,0 +1,41 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+source ${ETH}/bin/utils.sh
+echo "1"
+
+SERVICE="solc"
+
+
+main() {
+    local opts=${@:1}
+
+    local name=$(echo "solc-$(get-container-dapp-path)" | tr '/' '-')
+
+    local extra_run_opts="--rm --name ${name}"
+
+    local run_opts=$( get-run-opts ${extra_run_opts} )
+
+    local pkgs=
+    if [ -d "./installed_contracts" ]; then
+        pkgs=$(cd installed_contracts && ls -d *)
+    fi
+
+    local pkg_dir=
+    local include_args=
+    for pkg in $pkgs
+    do
+        pkg_dir="$(get-container-dapp-path)/installed_contracts/${pkg}/contracts"
+        include_args="${include_args} ${pkg}=${pkg_dir}"
+    done
+
+    run-docker-compose \
+        run ${run_opts} \
+        ${SERVICE} \
+        solc ${include_args} ${opts}
+}
+
+main "$@"

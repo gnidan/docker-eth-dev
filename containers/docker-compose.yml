@@ -43,6 +43,12 @@ services:
     ports:
       - "80"
 
+  solc:
+    image: ethereum/solc:stable
+    tty: true
+    volumes:
+      - "${ETH}/dapps:/var/dapps"
+
   truffle:
     stdin_open: true
     tty: true
