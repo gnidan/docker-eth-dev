@@ -1,0 +1,40 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+source ${ETH}/bin/utils.sh
+
+SERVICE="truffle"
+
+
+main() {
+    local cmd=$1
+    local opts
+    if [ "${cmd}" == "run" ]
+    then
+        cmd="${cmd} $2"
+        opts=${@:3}
+    else
+        opts=${@:2}
+    fi
+
+    local name=$(echo "npm-${cmd// /-}-$(get-container-dapp-path)" | tr '/' '-')
+    local extra_run_opts="--rm --name ${name}"
+
+    if [ "${cmd}" == "run dev" ]
+    then
+        local port_map="9999:9999"  # opens ephemeral port
+        extra_run_opts="${extra_run_opts} -p ${port_map}"
+    fi
+
+    local run_opts=$( get-run-opts ${extra_run_opts} )
+
+    run-docker-compose \
+        run ${run_opts} \
+        ${SERVICE} \
+        npm ${cmd} ${opts}
+}
+
+main "$@"
