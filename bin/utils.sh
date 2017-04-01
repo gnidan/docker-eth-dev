@@ -54,6 +54,10 @@ get-run-opts() {
     echo "-w $( get-container-dapp-path ) $@"
 }
 
+get-exec-opts() {
+    echo "-w $( get-container-dapp-path ) $@"
+}
+
 run-docker-compose() {
     pushd ${ETH}/containers >/dev/null
     docker-compose $@
