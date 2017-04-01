@@ -10,10 +10,9 @@ SERVICE="truffle"
 
 
 main() {
-    local cmd=$1
-    local opts=${@:2}
+    local args=$@
 
-    local name=$(echo "truffle-${cmd}-$(get-container-dapp-path)" | tr '/' '-')
+    local name=$(echo "node-${args// /-}-$(get-container-dapp-path)" | tr '/' '-')
     local extra_run_opts="--rm --name ${name}"
 
     local run_opts=$( get-run-opts ${extra_run_opts} )
@@ -21,7 +20,7 @@ main() {
     run-docker-compose \
         run ${run_opts} \
         ${SERVICE} \
-        truffle ${cmd} ${opts}
+        node ${args}
 }
 
 main "$@"
