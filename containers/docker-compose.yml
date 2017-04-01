@@ -65,6 +65,15 @@ services:
       - testrpc
       - oraclize-bridge-announce
 
+  ipfs:
+    image: jbenet/go-ipfs
+    tty: true
+    volumes:
+      - ipfs-export:/export
+      - ipfs-data:/data/ipfs
+    networks:
+      - ipfs
+
   nginx:
     restart: always
     tty: true
@@ -74,6 +83,7 @@ services:
     networks:
       - ethereum-testnet
       - ethereum-dev
+      - ipfs
     ports:
       - "80:80"
       - "8080:8080"
@@ -81,11 +91,15 @@ services:
     links:
       - parity-testnet
       - testrpc
+      - ipfs
     entrypoint: >
       /bin/bash -c "nginx -g 'daemon off;'"
 
 
 volumes:
+  ipfs-export:
+  ipfs-data:
+    external: true
   parity-testnet-data:
     external: true
   oraclize-instance:
@@ -94,4 +108,6 @@ networks:
   ethereum-dev:
     driver: bridge
   ethereum-testnet:
+    driver: bridge
+  ipfs:
     driver: bridge
