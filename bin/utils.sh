@@ -4,7 +4,7 @@ set -o nounset
 
 get-relpath() {
     python -c 'import os.path, sys;\
-  print os.path.relpath(sys.argv[1],sys.argv[2])' "$1" "${2-$PWD}"
+        print os.path.relpath(sys.argv[1],sys.argv[2]).replace(":","").replace("\\\\", "/")' "$1" "${2-$PWD}"
 }
 
 get-normpath() {
