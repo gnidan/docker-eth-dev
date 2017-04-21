@@ -2,19 +2,32 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+env_bin=$( echo ${BASH_SOURCE-$_} | xargs dirname )
+. ${env_bin}/os.path.sh
+
 get-relpath() {
-    python -c 'import os.path, sys;\
-        print os.path.relpath(sys.argv[1],sys.argv[2]).replace(":","").replace("\\\\", "/")' "$1" "${2-$PWD}"
+    local path=$1
+    local start=${2-$PWD}
+    local pop=
+
+    if [[ "$start" != "$PWD" ]]; then
+      pushd $2 >/dev/null
+      pop=1
+    fi
+
+    os.path.relpath $start
+
+    if [ -n "$pop" ]; then
+      popd >/dev/null
+    fi
 }
 
 get-normpath() {
-    python -c 'import os.path, sys;\
-  print os.path.normpath(sys.argv[1])' "${1-$PWD}"
+    os.path.normpath "${1-$PWD}"
 }
 
 get-abspath() {
-    python -c 'import os.path, sys;\
-  print os.path.abspath(sys.argv[1])' "${1-$PWD}"
+    os.path.abspath "${1-$PWD}"
 }
 
 get-real-eth-home() {
