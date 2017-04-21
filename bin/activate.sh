@@ -1,9 +1,10 @@
-ETH=$( echo ${BASH_SOURCE-$_} | xargs dirname | xargs dirname )   # bootstrap relative ETH
+# bootstrap relative ETH
+ETH=$( echo ${BASH_SOURCE-$_} | xargs dirname | xargs dirname )
 
 if [ "${ETHACTIVE-0}" -gt "0" ]
 then
     # first deactivate to clear anything out
-    . ${ETH}/bin/deactivate.sh
+    source ${ETH}/bin/deactivate.sh
 fi
 
 activate() {
