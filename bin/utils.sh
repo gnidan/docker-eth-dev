@@ -11,11 +11,11 @@ get-relpath() {
     local pop=
 
     if [[ "$start" != "$PWD" ]]; then
-      pushd $2 >/dev/null
+      pushd $start >/dev/null
       pop=1
     fi
 
-    os.path.relpath $start
+    os.path.relpath $path
 
     if [ -n "$pop" ]; then
       popd >/dev/null
