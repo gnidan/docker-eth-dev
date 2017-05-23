@@ -33,7 +33,7 @@ get-abspath() {
 get-real-eth-home() {
     local whereisthis=`dirname $BASH_SOURCE`
     local eth_home=`get-abspath "${whereisthis}/.."`
-    echo "${eth_home}"
+    echo "${eth_home%/}"
 }
 
 get-container-dapp-path() {
